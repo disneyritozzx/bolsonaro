@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo do STF</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container py-5">
+        <!-- Main Menu -->
+        <div id="mainMenu" class="menu-section">
+            <div class="text-center mb-5">
+                <div class="logo-container mb-4">
+                    <i class="fas fa-balance-scale fa-3x text-primary mb-3"></i>
+                    <h1 style="color:#fff">Jogo do STF</h1>
+                </div>
+                <p class="lead" style="color:#fff">Teste seus conhecimentos sobre o Supremo Tribunal Federal!</p>
+            </div>
+            <div class="d-grid gap-4 col-md-6 mx-auto">
+                <button class="btn btn-primary btn-lg" id="newGameBtn" onclick="showGameSetup()" disabled>
+                    <i class="fas fa-play me-2"></i>Novo Jogo
+                </button>
+                <div class="rules-btn-wrapper position-relative w-100">
+                    <div id="leiaRegrasText" class="leia-regras-text d-none">LEIA AS REGRAS!!!!!!!!!!!</div>
+                    <span id="rulesArrow" class="arrow-animate d-none"></span>
+                    <button class="btn btn-secondary btn-lg w-100" id="rulesBtn" onclick="showRules()">
+                        <i class="fas fa-book me-2"></i>Regras
+                    </button>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center gap-3 mt-4">
+                <button class="btn btn-outline-info" onclick="showAboutModal()"><i class="fas fa-info-circle me-2"></i>Sobre o Jogo</button>
+                <button class="btn btn-outline-secondary" onclick="showCreditsModal()" style="color:#fff"><i class="fas fa-users me-2" style="color:#fff"></i>Créditos</button>
+            </div>
+        </div>
+
+        <!-- Game Setup -->
+        <div id="gameSetup" class="menu-section d-none">
+            <div class="text-center mb-4">
+                <h2><i class="fas fa-cog me-2"></i>Configuração do Jogo</h2>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <label for="playerCount" class="form-label">Número de Jogadores (2-7)</label>
+                        <select class="form-select" id="playerCount">
+                            <option value="2">2 Jogadores</option>
+                            <option value="3">3 Jogadores</option>
+                            <option value="4">4 Jogadores</option>
+                            <option value="5">5 Jogadores</option>
+                            <option value="6">6 Jogadores</option>
+                            <option value="7">7 Jogadores</option>
+                        </select>
+                    </div>
+                    <div id="playerInputs" class="mb-4"></div>
+                    <div class="d-grid gap-3">
+                        <button class="btn btn-primary" onclick="startGame()">
+                            <i class="fas fa-play me-2"></i>Iniciar Jogo
+                        </button>
+                        <button class="btn btn-secondary" onclick="showMainMenu()">
+                            <i class="fas fa-arrow-left me-2"></i>Voltar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rules -->
+        <div id="rules" class="menu-section d-none">
+            <div class="text-center mb-4">
+                <h2><i class="fas fa-book me-2"></i>Regras do Jogo</h2>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4">Como Jogar</h5>
+                            <ol class="list-group list-group-numbered mb-4">
+                                <li class="list-group-item">
+                                    <i class="fas fa-flag-checkered me-2 text-primary"></i>
+                                    Cada jogador começa na posição inicial do tabuleiro.
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-dice me-2 text-primary"></i>
+                                    Na sua vez, role o dado para determinar quantas casas avançar.
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-question-circle me-2 text-primary"></i>
+                                    Responda corretamente à pergunta para avançar o número de casas do dado.
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-times-circle me-2 text-primary"></i>
+                                    Se errar a resposta, permaneça na mesma posição.
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-trophy me-2 text-primary"></i>
+                                    O primeiro jogador a chegar ao final do tabuleiro vence!
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-bolt me-2 text-primary"></i>
+                                    Desafio Relâmpago: Acerte 3 perguntas seguidas e ganhe +2 casas de bônus.
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-undo me-2 text-primary"></i>
+                                    Retrocesso por Erro: Se errar, volte 1 casa (exceto na inicial).
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-star me-2 text-primary"></i>
+                                    Pergunta Dourada: A cada 10 rodadas, uma pergunta especial vale o dobro do dado.
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-random me-2 text-primary"></i>
+                                    Casa de Sorte ou Revés: Casas 10, 20, 30, 40 e 50: responda uma pergunta extra. Acertou? Avance +1. Errou? Volte -1.
+                                </li>
+                            </ol>
+                            <div class="form-check mb-4">
+                                <input class="form-check-input" type="checkbox" value="" id="rulesAgreeCheckbox">
+                                <label class="form-check-label" for="rulesAgreeCheckbox">
+                                    Li e concordo com as regras do jogo.
+                                </label>
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="showMainMenu()">
+                                <i class="fas fa-arrow-left me-2"></i>Voltar ao Menu
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Board -->
+        <div id="gameBoard" class="menu-section d-none">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="board-container">
+                        <div id="board" class="board"></div>
+                        <div id="players" class="players"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="game-info">
+                        <h3 id="currentPlayer" class="mb-4">
+                            <i class="fas fa-user me-2"></i>Vez de: Jogador 1
+                        </h3>
+                        <div id="diceResult" class="mb-4"></div>
+                        <div id="answerFeedback" class="answer-feedback d-none mb-4"></div>
+                        <button class="btn btn-primary btn-lg w-100 mb-4" onclick="rollDice()">
+                            <i class="fas fa-dice me-2"></i>Rolar Dado
+                        </button>
+                        <div id="questionCard" class="card d-none">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">
+                                    <i class="fas fa-question-circle me-2"></i>Pergunta
+                                </h5>
+                                <p id="questionText" class="card-text"></p>
+                                <div id="options" class="d-grid gap-2"></div>
+                            </div>
+                        </div>
+                        <!-- Painel de debug para mover jogadores -->
+                        <div id="debugMovePanel" class="card mt-4" style="background:#222; color:#fff; visibility: hidden; opacity: 0;">
+                            <div class="card-body">
+                                <h5 class="card-title">Mover Jogador (Debug)</h5>
+                                <div id="debugMovePlayers"></div>
+                                <hr>
+                                <div id="debugPlayerSelect"></div>
+                                <button class="btn btn-warning mt-2 w-100" id="autoWinBtn" onclick="autoWin()">Auto Win</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Win Modal -->
+        <div id="winModal" class="modal fade" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content text-center p-4 position-relative" style="background:#222; color:#fff; border-radius:20px;">
+                    <canvas id="confettiCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;"></canvas>
+                    <div style="position:relative;z-index:2;">
+                        <img id="winnerFace" src="" alt="Vencedor" style="width:64px;height:64px;border-radius:50%;object-fit:cover;margin-bottom:1rem;">
+                        <h2 class="mb-2" style="color:#fff;">🎉 Você venceu! 🎉</h2>
+                        <h4 id="winnerName" class="mb-3" style="color:#fff;"></h4>
+                        <button class="btn btn-primary" onclick="closeWinModal()">Voltar ao Menu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Menu Additions -->
+        <div id="aboutModal" class="modal fade" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content p-4">
+                    <h4>Sobre o Jogo</h4>
+                    <p>Jogo do STF é um quiz divertido para testar seus conhecimentos sobre o Supremo Tribunal Federal e a Constituição Brasileira. Avance no tabuleiro, responda perguntas e desafie seus amigos!</p>
+                    <button class="btn btn-secondary" onclick="closeAboutModal()">Fechar</button>
+                </div>
+            </div>
+        </div>
+        <div id="creditsModal" class="modal fade" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content p-4">
+                    <h4>Créditos</h4>
+                    <ul>
+                        <li>Dev: Yago</li>
+                        <li>Design: Booststrap(deslike)</li>
+                        <li>Imagens dos presidentes: Google e Wikipedia</li>
+                        <li>Confetti: <a href='https://www.kirilv.com/canvas-confetti/' target='_blank'>canvas-confetti</a></li>
+                    </ul>
+                    <button class="btn btn-secondary" onclick="closeCreditsModal()">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toastFeedback" class="toast-feedback d-none"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="stf_game.js"></script>
+</body>
+</html>
